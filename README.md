@@ -1,0 +1,1 @@
+A simple vanilla JS task list that persists tasks in local storage.
