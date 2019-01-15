@@ -29,49 +29,23 @@ function getTasksFromLocalStorage() {
   }
 
   tasks.forEach(function(task){
-    //create li
-    const li = document.createElement('li');
-    // add class
-    li.className = 'collection-item blue-grey white-text';
-    // create text node and append li
-    li.appendChild(document.createTextNode(task));
-    // create new link element
-    const link = document.createElement('a');
-    //add class
-    link.className = 'delete-item secondary-content';
-    //add icon html
-    link.innerHTML = '<i class="fa fa-trash-alt"></i>';
-    //append the link to li
-    li.appendChild(link);
-    // append li to ul
-    taskList.appendChild(li);
+    createNewTaskListItem(task);
   });
 }
 
 function addTask(e) {
-  if(taskInput.value === ''){
+
+  let task = taskInput.value
+  if(task === ''){
     alert('Add a task');
   }
 
-  //create li
-  const li = document.createElement('li');
-  // add class
-  li.className = 'collection-item blue-grey white-text';
-  // create text node and append li
-  li.appendChild(document.createTextNode(taskInput.value));
-  // create new link element
-  const link = document.createElement('a');
-  //add class
-  link.className = 'delete-item secondary-content';
-  //add icon html
-  link.innerHTML = '<i class="fa fa-trash-alt"></i>';
-  //append the link to li
-  li.appendChild(link);
-  // append li to ul
-  taskList.appendChild(li);
+  createNewTaskListItem(task);
+  
   // store in local storage
-  storeTaskInLocalStorage(taskInput.value);
+  storeTaskInLocalStorage(task);
   // clear input
+  // TODO figure out why task = ''; won't clear field
   taskInput.value = '';
 
   e.preventDefault();
@@ -139,4 +113,24 @@ function filterTasks(e) {
       task.style.display = 'none';
     }
   });
+}
+
+function createNewTaskListItem(targetElement) {
+  
+  //create li
+  const li = document.createElement('li');
+  // add class
+  li.className = 'collection-item blue-grey white-text';
+  // create text node and append li
+  li.appendChild(document.createTextNode(targetElement));
+  // create new link element
+  const link = document.createElement('a');
+  //add class
+  link.className = 'delete-item secondary-content';
+  //add icon html
+  link.innerHTML = '<i class="fa fa-trash-alt"></i>';
+  //append the link to li
+  li.appendChild(link);
+  // append li to ul
+  taskList.appendChild(li);
 }
